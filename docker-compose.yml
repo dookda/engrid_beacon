@@ -1,0 +1,37 @@
+version: '3.3'
+services:
+  nginx:
+    image: nginx
+    container_name: nginx
+    depends_on:
+      - nodejs
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+  postgis:
+    image: postgis/postgis
+    container_name: postgis
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      # - POSTGRES_DB=geodb
+    ports:
+      - 5433:5432
+    volumes:
+      - ./postgis:/docker-entrypoint-initdb.d
+  nodejs:
+    image: node
+    container_name: nodejs
+    working_dir: /app/nodejs
+    restart: always
+    depends_on:
+      - postgis
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./nodejs:/app/nodejs
+    ports:
+      - 3000:3000
+    command: bash -c "npm i && npm i -g nodemon && nodemon server.js"
