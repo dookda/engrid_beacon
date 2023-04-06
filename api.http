@@ -1,0 +1,10 @@
+POST https://4908-202-28-244-197.ngrok.io/webhook
+Content-Type: application/json
+
+{
+    "name": "John",
+}
+
+###
+GET https://4908-202-28-244-197.ngrok.io/aqi
+
