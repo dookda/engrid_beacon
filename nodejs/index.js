@@ -5,7 +5,7 @@ const app = express();
 const config = require('./config').config;
 const axios = require('axios');
 const client = new line.Client(config);
-app.use('/webhook', line.middleware(config));
+app.use('/api/webhook', line.middleware(config));
 app.use(bodyParser.json());
 
 const getAqi = () => {
@@ -18,7 +18,7 @@ const getAqi = () => {
 }
 
 
-app.post('/webhook', (req, res) => {
+app.post('/api/webhook', (req, res) => {
 
     const event = req.body.events[0];
     if (event.type == "beacon") {
@@ -76,7 +76,7 @@ app.post('/webhook', (req, res) => {
 
 });
 
-app.get('/aqi', (req, res) => {
+app.get('/api/aqi', (req, res) => {
     axios.get("https://api.waqi.info/feed/here/?token=2b9b7d19f47c41ab2f58a00c0f61315f7a0c5926")
         .then((response) => {
             console.log(response.data);

@@ -35,3 +35,15 @@ services:
     ports:
       - 3000:3000
     command: bash -c "npm i && npm i -g nodemon && nodemon server.js"
+  reactapp:
+    image: node
+    container_name: reactapp
+    working_dir: /app/reactapp
+    restart: always
+    environment:
+      - WDS_SOCKET_PORT=80
+    volumes:
+      - ./reactapp:/app/reactapp
+    ports:
+      - 5173:5173
+    command: bash -c "npm i && npm run dev"
