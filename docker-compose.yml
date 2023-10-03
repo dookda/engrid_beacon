@@ -47,3 +47,12 @@ services:
     ports:
       - 5173:5173
     command: bash -c "npm i && npm run dev"
+  fastapi:
+    image: sakdahomhuan/fastapi:latest
+    container_name: fastapi
+    working_dir: /app/
+    volumes:
+      - ./fastapi/:/app/
+    ports:
+      - 8000:80
+    command: /start-reload.sh
