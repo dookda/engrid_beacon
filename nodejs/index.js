@@ -17,10 +17,11 @@ const getAqi = () => {
     })
 }
 
-
 app.post('/api/webhook', (req, res) => {
 
     const event = req.body.events[0];
+
+    console.log(event);
     if (event.type == "beacon") {
         console.log(event.beacon);
         var msg = {
@@ -87,6 +88,6 @@ app.get('/api/aqi', (req, res) => {
 
 
 app.use('/', express.static('www'));
-
-app.listen(3000, () => { console.log(`run at http://localhost`) });
+const port = process.env.PORT || 3000;
+app.listen(port, () => { console.log(`run at http://localhost:${port}`) });
 
